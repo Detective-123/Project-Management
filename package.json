@@ -1,0 +1,19 @@
+{
+  "name": "projmanagement",
+  "version": "1.0.0",
+  "description": "simple project management system",
+  "main": "index.js",
+  "type": "module",
+  "scripts": {
+    "dev": "node index.js"
+  },
+  "keywords": [
+    "backend",
+    "learning"
+  ],
+  "author": "Gaurav",
+  "license": "ISC",
+  "devDependencies": {
+    "prettier": "3.7.4"
+  }
+}
