@@ -146,7 +146,25 @@ const getTaskById = asyncHandler(async (req, res) => {
     .json(new ApiResponse(200, task, "Task fetched successfully"))
 });
 
-const updateTask = asyncHandler(async (req, res) => {});
+const updateTask = asyncHandler(async (req, res) => {
+  const {taskId} = req.params
+  const {title, description, assignedTo, status} = req.body
+
+  const task = await Task.findByIdAndUpdate(
+    taskId,
+    {title, description, assignedTo, status},
+    {new: true}
+  )
+
+  if(!task){
+    throw new ApiError(404, "Task not found")
+  }
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, task, "Task updated successfully"))
+  
+});
 
 const deleteTask = asyncHandler(async (req, res) => {});
 
