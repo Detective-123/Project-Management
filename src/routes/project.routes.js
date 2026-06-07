@@ -30,33 +30,33 @@ router
   .get(getProject)
   .post(createProjectValidator(), validator, createProject);
 
-router
-  .route("/:projectId")
-  .get(validateProjectPermission(AvailableUserRoles), getProjectById)
-  .put(
-    validateProjectPermission([UserRolesEnum.ADMIN]),
-    createProjectValidator(),
-    validator,
-    updateProject,
-  )
-  .delete(
-    validateProjectPermission([UserRolesEnum.ADMIN]),
-    deleteProject
-  )
+// router
+//   .route("/:projectId")
+//   .get(validateProjectPermission(AvailableUserRoles), getProjectById)
+//   .put(
+//     validateProjectPermission([UserRolesEnum.ADMIN]),
+//     createProjectValidator(),
+//     validator,
+//     updateProject,
+//   )
+//   .delete(
+//     validateProjectPermission([UserRolesEnum.ADMIN]),
+//     deleteProject
+//   )
 
-router
-  .route("/:projectId/members")
-  .get(getProjectMembers)
-  .post(
-    validateProjectPermission([UserRolesEnum.ADMIN]),
-    addMembersToProjectValidator(),
-    validator,
-    addMembersToProject,
-  )
+// router
+//   .route("/:projectId/members")
+//   .get(getProjectMembers)
+//   .post(
+//     validateProjectPermission([UserRolesEnum.ADMIN]),
+//     addMembersToProjectValidator(),
+//     validator,
+//     addMembersToProject,
+//   )
 
-router
-  .route("/:projectId/members/:userId")
-  .put(validateProjectPermission([UserRolesEnum.ADMIN]), updateMemberRoles)
-  .delete(validateProjectPermission([UserRolesEnum.ADMIN]), deleteMember)
+// router
+//   .route("/:projectId/members/:userId")
+//   .put(validateProjectPermission([UserRolesEnum.ADMIN]), updateMemberRoles)
+//   .delete(validateProjectPermission([UserRolesEnum.ADMIN]), deleteMember)
 
 export default router;
