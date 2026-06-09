@@ -15,6 +15,9 @@ const notesSchema = new Schema(
     content: {
       type: String,
       required: true
+    },
+    role: {
+      type: String,
     }
   },
   {
