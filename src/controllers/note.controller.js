@@ -32,3 +32,8 @@ const deleteNote = asyncHandler(async(req, res) => {
 const encryptNote = asyncHandler(async(req, res) => {
   
 })
+
+const getNotesByRole = asyncHandler(async(req, res) => {
+
+})
+
