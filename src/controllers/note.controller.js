@@ -5,7 +5,6 @@ import { ApiError } from "../utils/apiError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 import { AvailableUserRoles, UserRolesEnum } from "../utils/constants";
 
-
 /**
  NOTES controller
  basic CRUD
@@ -13,27 +12,48 @@ import { AvailableUserRoles, UserRolesEnum } from "../utils/constants";
  role based access to encrypted notes
  */
 
-const createNote = asyncHandler(async(req, res) => {
+const getAccessibleProject = asyncHandler(async (projectId, userId) => {
+  if (!mongoose.Types.ObjectId.isValid(projectId)) return null;
 
-})
+  const project = await Project.findOne({
+    _id: projectId,
+    $or: [{ owner: userId }, { members: userId }],
+  });
+});
 
-const getNotes = asyncHandler(async(req, res) => {
-  
-})
+const createNote = asyncHandler(async (req, res) => {
+  try {
+    const { projectId } = req.params;
+    const { title, content } = req.body;
 
-const updateNote = asyncHandler(async(req, res) => {
-  
-})
+    if (!title) {
+      return res.status(400).json({ message: "Title is required" });
+    }
 
-const deleteNote = asyncHandler(async(req, res) => {
-  
-})
+    const project = await getAccessibleProject(projectId, req.user._id);
+    if (!project) {
+      return res.status(404).json({ message: "Project not found" });
+    }
 
-const encryptNote = asyncHandler(async(req, res) => {
-  
-})
+    const note = await Note.create({
+      project: projectId,
+      author: req.user._id,
+      title,
+      content,
+    });
 
-const getNotesByRole = asyncHandler(async(req, res) => {
+    res.status(201).json({ note });
+  } catch (err) {
+    res.status(500).json({ message: "Server error", error: err.message });
+  }
+});
 
-})
+const getNotes = asyncHandler(async (req, res) => {});
 
+const updateNote = asyncHandler(async (req, res) => {});
+
+const deleteNote = asyncHandler(async (req, res) => {});
+
+const encryptNote = asyncHandler(async (req, res) => {});
+
+const getNotesByRole = asyncHandler(async (req, res) => {});
